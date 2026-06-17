@@ -1,0 +1,1146 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Transaction Review Dashboard UI Mockups</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --ink: #111827;
+      --muted: #687385;
+      --paper: #f5f1e8;
+      --cream: #fbf7ef;
+      --line: rgba(255, 255, 255, 0.16);
+      --danger: #c84135;
+      --amber: #d89b28;
+      --green: #4c9a72;
+      --blue: #3e6f9e;
+      --mono: "Cascadia Mono", "Consolas", monospace;
+      --display: "Bahnschrift", "Aptos Display", "Candara", sans-serif;
+      --serif: "Cambria", "Georgia", serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 15% 0%, rgba(216, 155, 40, 0.18), transparent 32rem),
+        radial-gradient(circle at 85% 10%, rgba(62, 111, 158, 0.16), transparent 36rem),
+        #0b0f16;
+      color: #f8fafc;
+      font-family: var(--display);
+    }
+
+    .shell {
+      width: min(1540px, calc(100vw - 36px));
+      margin: 0 auto;
+      padding: 32px 0 70px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 24px;
+      align-items: end;
+      margin-bottom: 30px;
+    }
+
+    .hero h1 {
+      margin: 0;
+      max-width: 900px;
+      font-size: clamp(40px, 7vw, 92px);
+      line-height: 0.86;
+      letter-spacing: -0.075em;
+      text-transform: uppercase;
+    }
+
+    .hero p {
+      margin: 0;
+      color: #cbd5e1;
+      font-size: 18px;
+      line-height: 1.5;
+      max-width: 680px;
+    }
+
+    .choice-strip {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      padding: 10px;
+      margin-bottom: 26px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 22px;
+      background: rgba(10, 14, 22, 0.82);
+      backdrop-filter: blur(18px);
+    }
+
+    .choice-strip a {
+      color: #dbeafe;
+      text-decoration: none;
+      padding: 12px 14px;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.045);
+      font-size: 14px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .choice-strip strong {
+      display: block;
+      color: #ffffff;
+      font-size: 16px;
+      letter-spacing: 0;
+      text-transform: none;
+    }
+
+    .concept {
+      margin-top: 28px;
+      padding: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 34px;
+      background: rgba(255, 255, 255, 0.055);
+      box-shadow: 0 30px 100px rgba(0, 0, 0, 0.36);
+    }
+
+    .concept-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: end;
+      margin: 4px 4px 16px;
+    }
+
+    .concept-kicker {
+      margin: 0 0 4px;
+      color: #93c5fd;
+      font-family: var(--mono);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+    }
+
+    .concept h2 {
+      margin: 0;
+      font-size: clamp(26px, 4vw, 48px);
+      letter-spacing: -0.035em;
+    }
+
+    .concept-note {
+      max-width: 560px;
+      color: #cbd5e1;
+      font-size: 15px;
+      line-height: 1.45;
+      text-align: right;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .status-red { background: rgba(200, 65, 53, 0.16); color: #ffb4aa; border: 1px solid rgba(200, 65, 53, 0.38); }
+    .status-amber { background: rgba(216, 155, 40, 0.16); color: #ffe0a3; border: 1px solid rgba(216, 155, 40, 0.42); }
+    .status-green { background: rgba(76, 154, 114, 0.16); color: #bff4d3; border: 1px solid rgba(76, 154, 114, 0.36); }
+    .status-blue { background: rgba(62, 111, 158, 0.16); color: #bfdbfe; border: 1px solid rgba(62, 111, 158, 0.42); }
+
+    .screen {
+      overflow: hidden;
+      min-height: 760px;
+      border-radius: 28px;
+    }
+
+    .mini-bars {
+      display: flex;
+      align-items: end;
+      gap: 8px;
+      height: 90px;
+    }
+
+    .mini-bars span {
+      flex: 1;
+      min-width: 10px;
+      border-radius: 999px 999px 4px 4px;
+      background: currentColor;
+      opacity: 0.86;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th {
+      text-align: left;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    td {
+      font-size: 14px;
+    }
+
+    /* Concept 1 */
+    .command {
+      display: grid;
+      grid-template-columns: 88px 1.35fr 0.78fr;
+      gap: 18px;
+      padding: 18px;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.08), transparent 28%),
+        radial-gradient(circle at 70% 12%, rgba(216, 155, 40, 0.2), transparent 26rem),
+        #07111f;
+      color: #f9fbff;
+    }
+
+    .command-rail {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 10px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .rail-mark {
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      color: #e5c77b;
+      text-transform: uppercase;
+    }
+
+    .rail-dot {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: #e5c77b;
+      color: #07111f;
+      font-weight: 900;
+    }
+
+    .command-main,
+    .command-side {
+      display: grid;
+      gap: 16px;
+    }
+
+    .command-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 18px;
+      border-radius: 26px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .command-header h3 {
+      margin: 0;
+      font-size: 38px;
+      line-height: 0.95;
+      letter-spacing: -0.055em;
+      max-width: 520px;
+    }
+
+    .command-time {
+      text-align: right;
+      font-family: var(--mono);
+      color: #cbd5e1;
+      font-size: 12px;
+    }
+
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .command .kpi {
+      padding: 18px;
+      min-height: 132px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.085);
+      border: 1px solid rgba(255, 255, 255, 0.13);
+    }
+
+    .kpi small {
+      display: block;
+      color: #a8b6cb;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .kpi strong {
+      display: block;
+      margin-top: 18px;
+      font-size: 34px;
+      letter-spacing: -0.045em;
+    }
+
+    .command-card {
+      padding: 18px;
+      border-radius: 26px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.13);
+    }
+
+    .command-card h4,
+    .paper-card h4,
+    .vault-card h4,
+    .ops-card h4 {
+      margin: 0 0 14px;
+      font-size: 16px;
+      letter-spacing: -0.01em;
+    }
+
+    .command-table th,
+    .command-table td {
+      padding: 13px 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.11);
+    }
+
+    .command-table tbody tr:first-child {
+      background: linear-gradient(90deg, rgba(200, 65, 53, 0.16), transparent);
+    }
+
+    .selected-transaction {
+      display: grid;
+      gap: 14px;
+      padding: 22px;
+      border-radius: 26px;
+      background: linear-gradient(160deg, rgba(216, 155, 40, 0.22), rgba(255, 255, 255, 0.08));
+      border: 1px solid rgba(229, 199, 123, 0.36);
+    }
+
+    .selected-transaction h4 {
+      margin: 0;
+      font-size: 26px;
+      letter-spacing: -0.04em;
+    }
+
+    .reason-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .reason-list div {
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: rgba(0, 0, 0, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 13px;
+    }
+
+    /* Concept 2 */
+    .paper {
+      padding: 28px;
+      background:
+        linear-gradient(90deg, rgba(17, 24, 39, 0.04) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(17, 24, 39, 0.04) 1px, transparent 1px),
+        var(--paper);
+      background-size: 26px 26px;
+      color: var(--ink);
+      font-family: var(--serif);
+    }
+
+    .paper-top {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 20px;
+      padding-bottom: 20px;
+      border-bottom: 3px double #1f2937;
+    }
+
+    .paper h3 {
+      margin: 0;
+      max-width: 680px;
+      font-size: 60px;
+      line-height: 0.92;
+      letter-spacing: -0.055em;
+    }
+
+    .paper-deck {
+      margin: 14px 0 0;
+      color: #415061;
+      font-size: 18px;
+      line-height: 1.45;
+    }
+
+    .briefing-box {
+      align-self: stretch;
+      padding: 20px;
+      border: 2px solid #1f2937;
+      background: rgba(251, 247, 239, 0.8);
+      box-shadow: 9px 9px 0 #1f2937;
+      font-family: var(--display);
+    }
+
+    .paper-grid {
+      display: grid;
+      grid-template-columns: 0.78fr 1.22fr;
+      gap: 22px;
+      margin-top: 24px;
+    }
+
+    .paper-kpis {
+      display: grid;
+      gap: 14px;
+    }
+
+    .paper-kpi {
+      padding: 20px;
+      border: 2px solid #1f2937;
+      background: #fffaf0;
+    }
+
+    .paper-kpi small {
+      font-family: var(--mono);
+      color: #5f6b7a;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .paper-kpi strong {
+      display: block;
+      margin-top: 8px;
+      font-family: var(--display);
+      font-size: 48px;
+      letter-spacing: -0.07em;
+    }
+
+    .paper-card {
+      padding: 20px;
+      border: 2px solid #1f2937;
+      background: rgba(255, 250, 240, 0.9);
+    }
+
+    .paper-table th,
+    .paper-table td {
+      padding: 13px 8px;
+      border-bottom: 1px solid rgba(31, 41, 55, 0.22);
+      font-family: var(--display);
+    }
+
+    .paper-table th {
+      color: #475569;
+    }
+
+    .editorial-callout {
+      margin-top: 16px;
+      padding: 18px;
+      border-left: 8px solid #c84135;
+      background: #fff1df;
+      font-family: var(--display);
+      font-size: 15px;
+    }
+
+    /* Concept 3 */
+    .ops {
+      display: grid;
+      grid-template-columns: 250px 1fr;
+      background:
+        linear-gradient(135deg, rgba(34, 197, 94, 0.12), transparent 32%),
+        #eef4f0;
+      color: #13261e;
+      font-family: "Candara", "Aptos", sans-serif;
+    }
+
+    .ops-sidebar {
+      padding: 22px;
+      background: #12362b;
+      color: #f5fff8;
+    }
+
+    .ops-logo {
+      font-size: 24px;
+      font-weight: 900;
+      letter-spacing: -0.05em;
+    }
+
+    .ops-nav {
+      display: grid;
+      gap: 10px;
+      margin-top: 34px;
+    }
+
+    .ops-nav div {
+      padding: 12px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.08);
+      font-size: 14px;
+    }
+
+    .ops-body {
+      padding: 24px;
+    }
+
+    .ops-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .ops-header h3 {
+      margin: 0;
+      font-size: 44px;
+      letter-spacing: -0.06em;
+    }
+
+    .ops-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .ops-filter {
+      padding: 9px 12px;
+      border: 1px solid #bdd0c6;
+      border-radius: 14px;
+      background: #ffffff;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .ops-layout {
+      display: grid;
+      grid-template-columns: 1fr 330px;
+      gap: 16px;
+    }
+
+    .ops-metrics {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .ops-metric,
+    .ops-card {
+      padding: 16px;
+      border: 1px solid #cbd9d1;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.84);
+      box-shadow: 0 18px 40px rgba(38, 72, 57, 0.08);
+    }
+
+    .ops-metric small {
+      display: block;
+      color: #5d7067;
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .ops-metric strong {
+      display: block;
+      margin-top: 12px;
+      font-size: 34px;
+      letter-spacing: -0.055em;
+    }
+
+    .ops-lanes {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+    }
+
+    .lane {
+      min-height: 355px;
+      padding: 12px;
+      border: 1px solid #d5e0da;
+      border-radius: 20px;
+      background: #f7faf8;
+    }
+
+    .lane h4 {
+      margin: 0 0 12px;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #4e645a;
+    }
+
+    .ticket {
+      padding: 12px;
+      margin-bottom: 10px;
+      border-radius: 16px;
+      background: #ffffff;
+      border: 1px solid #d7e1dc;
+      box-shadow: 0 10px 24px rgba(20, 54, 43, 0.07);
+      font-size: 13px;
+    }
+
+    .ticket strong {
+      display: block;
+      font-size: 15px;
+      margin-bottom: 8px;
+    }
+
+    .ops-note {
+      width: 100%;
+      min-height: 150px;
+      padding: 14px;
+      border: 1px solid #cbd9d1;
+      border-radius: 18px;
+      background: #fafffb;
+      color: #4d6358;
+      font-size: 14px;
+    }
+
+    /* Concept 4 */
+    .vault {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: 20px;
+      padding: 22px;
+      background:
+        radial-gradient(circle at center, transparent 0 15%, rgba(255, 255, 255, 0.08) 15.2% 15.6%, transparent 15.8% 30%, rgba(255, 255, 255, 0.06) 30.2% 30.6%, transparent 30.8% 44%, rgba(255, 255, 255, 0.04) 44.2% 44.5%, transparent 44.7%),
+        linear-gradient(120deg, rgba(20, 184, 166, 0.16), transparent 34%),
+        #050709;
+      color: #e7fff9;
+      font-family: "Bahnschrift", "Aptos Display", sans-serif;
+    }
+
+    .vault::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(231, 255, 249, 0.055) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(231, 255, 249, 0.055) 1px, transparent 1px);
+      background-size: 42px 42px;
+      pointer-events: none;
+      mask-image: radial-gradient(circle at 45% 45%, black, transparent 76%);
+    }
+
+    .vault-main,
+    .vault-side {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      gap: 16px;
+    }
+
+    .vault-header {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 18px;
+      border: 1px solid rgba(45, 212, 191, 0.24);
+      border-radius: 26px;
+      background: rgba(7, 13, 16, 0.72);
+      box-shadow: inset 0 0 42px rgba(20, 184, 166, 0.08);
+    }
+
+    .vault-header h3 {
+      margin: 0;
+      font-size: 48px;
+      line-height: 0.9;
+      letter-spacing: -0.06em;
+    }
+
+    .radar-wrap {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 16px;
+    }
+
+    .radar {
+      position: relative;
+      min-height: 430px;
+      border: 1px solid rgba(45, 212, 191, 0.24);
+      border-radius: 28px;
+      background:
+        radial-gradient(circle, transparent 0 22%, rgba(45, 212, 191, 0.13) 22.5% 23%, transparent 23.5% 45%, rgba(45, 212, 191, 0.1) 45.5% 46%, transparent 46.5% 68%, rgba(45, 212, 191, 0.08) 68.5% 69%, transparent 69.5%),
+        rgba(7, 13, 16, 0.76);
+      overflow: hidden;
+    }
+
+    .radar::after {
+      content: "";
+      position: absolute;
+      width: 52%;
+      height: 52%;
+      left: 50%;
+      top: 50%;
+      transform-origin: 0 0;
+      background: conic-gradient(from 22deg, rgba(45, 212, 191, 0.42), transparent 34deg);
+      animation: sweep 9s linear infinite;
+    }
+
+    @keyframes sweep {
+      to { transform: rotate(360deg); }
+    }
+
+    .blip {
+      position: absolute;
+      z-index: 2;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #f97316;
+      box-shadow: 0 0 0 10px rgba(249, 115, 22, 0.16), 0 0 28px #f97316;
+    }
+
+    .blip.b1 { left: 64%; top: 24%; }
+    .blip.b2 { left: 33%; top: 58%; background: #ef4444; box-shadow: 0 0 0 10px rgba(239, 68, 68, 0.15), 0 0 28px #ef4444; }
+    .blip.b3 { left: 73%; top: 68%; background: #fde68a; box-shadow: 0 0 0 10px rgba(253, 230, 138, 0.15), 0 0 28px #fde68a; }
+
+    .vault-card {
+      padding: 18px;
+      border: 1px solid rgba(45, 212, 191, 0.24);
+      border-radius: 26px;
+      background: rgba(7, 13, 16, 0.76);
+      box-shadow: inset 0 0 42px rgba(20, 184, 166, 0.06);
+    }
+
+    .vault-kpis {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .vault-kpi {
+      padding: 16px;
+      border-radius: 20px;
+      background: rgba(45, 212, 191, 0.08);
+      border: 1px solid rgba(45, 212, 191, 0.18);
+    }
+
+    .vault-kpi small {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: #8ddbd0;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .vault-kpi strong {
+      display: block;
+      margin-top: 8px;
+      color: #ffffff;
+      font-size: 34px;
+      letter-spacing: -0.05em;
+    }
+
+    .signal-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(45, 212, 191, 0.12);
+      font-size: 13px;
+    }
+
+    .signal-row strong {
+      display: block;
+      color: #ffffff;
+      font-size: 15px;
+    }
+
+    .decision-table th,
+    .decision-table td {
+      padding: 11px 8px;
+      border-bottom: 1px solid rgba(45, 212, 191, 0.12);
+    }
+
+    @media (max-width: 1150px) {
+      .hero,
+      .command,
+      .paper-top,
+      .paper-grid,
+      .ops,
+      .ops-layout,
+      .vault,
+      .radar-wrap {
+        grid-template-columns: 1fr;
+      }
+
+      .choice-strip,
+      .kpi-grid,
+      .ops-metrics,
+      .ops-lanes {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .concept-note {
+        text-align: left;
+      }
+
+      .command-rail {
+        display: none;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .choice-strip,
+      .kpi-grid,
+      .ops-metrics,
+      .ops-lanes,
+      .vault-kpis {
+        grid-template-columns: 1fr;
+      }
+
+      .shell {
+        width: min(100vw - 18px, 1540px);
+      }
+
+      .screen {
+        min-height: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <section class="hero">
+      <div>
+        <p class="concept-kicker">Transaction Review Dashboard / UI direction set</p>
+        <h1>Four dashboard mockups for selection.</h1>
+      </div>
+      <p>Each concept uses the same core product requirements: exposure KPIs, SLA posture, seven-day risk trend, filtered transaction queue, explainable risk reasons, recommended next actions, and human-review governance language.</p>
+    </section>
+
+    <nav class="choice-strip" aria-label="Mockup navigation">
+      <a href="#concept-1">01<strong>Command Center</strong></a>
+      <a href="#concept-2">02<strong>Regulator Briefing</strong></a>
+      <a href="#concept-3">03<strong>Operations Workbench</strong></a>
+      <a href="#concept-4">04<strong>Risk Radar</strong></a>
+    </nav>
+
+    <section class="concept" id="concept-1">
+      <div class="concept-head">
+        <div>
+          <p class="concept-kicker">Version 01 / Executive crisis command</p>
+          <h2>Command Center</h2>
+        </div>
+        <p class="concept-note">Best when the dashboard needs to feel decisive in a leadership meeting. Dark boardroom palette, strong KPI hierarchy, and a persistent detail dossier for the highest-risk transaction.</p>
+      </div>
+
+      <div class="screen command">
+        <aside class="command-rail">
+          <div class="rail-dot">TR</div>
+          <div class="rail-mark">Human Review Only</div>
+          <div class="rail-dot">04</div>
+        </aside>
+
+        <section class="command-main">
+          <header class="command-header">
+            <div>
+              <span class="tag status-amber">Spike under review</span>
+              <h3>Outbound wire exposure is elevated across three corridors.</h3>
+            </div>
+            <div class="command-time">
+              <div>Board pack view</div>
+              <div>Updated 16:42 GST</div>
+              <div>7-day window</div>
+            </div>
+          </header>
+
+          <div class="kpi-grid">
+            <article class="kpi"><small>Flagged transactions</small><strong>428</strong><span class="tag status-blue">+34% WoW</span></article>
+            <article class="kpi"><small>Total exposure</small><strong>$18.7M</strong><span class="tag status-amber">Review queue</span></article>
+            <article class="kpi"><small>High risk</small><strong>63</strong><span class="tag status-red">Priority</span></article>
+            <article class="kpi"><small>Outside SLA</small><strong>19</strong><span class="tag status-red">Needs unblock</span></article>
+          </div>
+
+          <div class="command-card">
+            <h4>Seven-day flagged transaction trend</h4>
+            <div class="mini-bars" style="color:#e5c77b">
+              <span style="height:35%"></span><span style="height:48%"></span><span style="height:42%"></span><span style="height:61%"></span><span style="height:66%"></span><span style="height:79%"></span><span style="height:92%"></span>
+            </div>
+          </div>
+
+          <div class="command-card">
+            <h4>Priority queue</h4>
+            <table class="command-table">
+              <thead>
+                <tr><th>Txn</th><th>Corridor</th><th>Exposure</th><th>Signals</th><th>Status</th><th>SLA</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>TX-9084</td><td>GCC -> Baltics</td><td>$740K</td><td>Watchlist proximity, new beneficiary</td><td><span class="tag status-red">Escalated</span></td><td>Breached</td></tr>
+                <tr><td>TX-9051</td><td>UK -> MENA</td><td>$420K</td><td>Dormant reactivation</td><td><span class="tag status-amber">In review</span></td><td>2h left</td></tr>
+                <tr><td>TX-9036</td><td>EU -> LATAM</td><td>$315K</td><td>Velocity, threshold exception</td><td><span class="tag status-blue">New</span></td><td>5h left</td></tr>
+                <tr><td>TX-8998</td><td>US -> APAC</td><td>$288K</td><td>High-risk corridor</td><td><span class="tag status-green">Cleared</span></td><td>Inside</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <aside class="command-side">
+          <div class="selected-transaction">
+            <span class="tag status-red">Selected high risk</span>
+            <h4>TX-9084 requires sanctions-team review before closure.</h4>
+            <div class="reason-list">
+              <div>Sanctions watchlist proximity within configured review threshold.</div>
+              <div>New beneficiary added less than 48 hours before transaction.</div>
+              <div>Amount exceeds corridor threshold exception policy.</div>
+            </div>
+            <span class="tag status-amber">Recommended action: escalate to sanctions team</span>
+          </div>
+
+          <div class="command-card">
+            <h4>Backlog by status</h4>
+            <div class="mini-bars" style="color:#7dd3fc">
+              <span style="height:88%"></span><span style="height:64%"></span><span style="height:38%"></span><span style="height:30%"></span><span style="height:20%"></span>
+            </div>
+          </div>
+
+          <div class="command-card">
+            <h4>Reviewer note placeholder</h4>
+            <p style="margin:0;color:#cbd5e1;line-height:1.45">Notes are UI-only in the prototype. Production updates route to case management and immutable audit logging.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="concept" id="concept-2">
+      <div class="concept-head">
+        <div>
+          <p class="concept-kicker">Version 02 / Architecture board and regulator-friendly</p>
+          <h2>Regulator Briefing</h2>
+        </div>
+        <p class="concept-note">Best for formal governance audiences. Editorial, paper-like, and evidence oriented; reads like a live briefing document rather than an engineering dashboard.</p>
+      </div>
+
+      <div class="screen paper">
+        <header class="paper-top">
+          <div>
+            <p class="concept-kicker" style="color:#8b5e18">Human-in-the-loop transaction review</p>
+            <h3>Exposure is known, explainable, and actively controlled.</h3>
+            <p class="paper-deck">Transactions are flagged for review based on configured indicators. No automated finding of wrongdoing is made by this dashboard.</p>
+          </div>
+          <aside class="briefing-box">
+            <strong>Architecture board readout</strong>
+            <p style="line-height:1.45">Synthetic-data MVP for Friday; production path requires RBAC, masking, audit, retention, and API-mediated case-management integration.</p>
+            <span class="tag status-green">Ready for design approval</span>
+          </aside>
+        </header>
+
+        <div class="paper-grid">
+          <aside class="paper-kpis">
+            <div class="paper-kpi"><small>Flagged transaction volume</small><strong>428</strong><span>+109 since Monday</span></div>
+            <div class="paper-kpi"><small>Exposure under review</small><strong>$18.7M</strong><span>All values synthetic</span></div>
+            <div class="paper-kpi"><small>High-risk items</small><strong>63</strong><span>Prioritized for review</span></div>
+            <div class="paper-kpi"><small>Outside SLA</small><strong>19</strong><span>Blocked or escalated</span></div>
+          </aside>
+
+          <section>
+            <div class="paper-card">
+              <h4>Weekly review posture</h4>
+              <div class="mini-bars" style="color:#1f2937">
+                <span style="height:30%"></span><span style="height:44%"></span><span style="height:40%"></span><span style="height:55%"></span><span style="height:68%"></span><span style="height:75%"></span><span style="height:90%"></span>
+              </div>
+            </div>
+            <div class="paper-card" style="margin-top:18px">
+              <h4>Highest-priority transactions</h4>
+              <table class="paper-table">
+                <thead>
+                  <tr><th>Transaction</th><th>Reason for review</th><th>Owner</th><th>Status</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>TX-9084</td><td>Watchlist proximity; new beneficiary</td><td>Sanctions queue</td><td><span class="tag status-red">Escalated</span></td></tr>
+                  <tr><td>TX-9051</td><td>Dormant account reactivation</td><td>Financial crime</td><td><span class="tag status-amber">In review</span></td></tr>
+                  <tr><td>TX-9036</td><td>Velocity and threshold exception</td><td>Ops review</td><td><span class="tag status-blue">New</span></td></tr>
+                  <tr><td>TX-8998</td><td>High-risk corridor</td><td>Manager review</td><td><span class="tag status-green">Cleared</span></td></tr>
+                </tbody>
+              </table>
+              <div class="editorial-callout">Recommended next action for selected item: request source-of-funds evidence, then escalate to sanctions team if unresolved.</div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <section class="concept" id="concept-3">
+      <div class="concept-head">
+        <div>
+          <p class="concept-kicker">Version 03 / Compliance operations first</p>
+          <h2>Operations Workbench</h2>
+        </div>
+        <p class="concept-note">Best if managers and reviewers will use the dashboard daily. Emphasizes workflow lanes, ownership, filters, and what is stuck instead of only executive summary.</p>
+      </div>
+
+      <div class="screen ops">
+        <aside class="ops-sidebar">
+          <div class="ops-logo">ReviewOps</div>
+          <div class="ops-nav">
+            <div>Overview</div>
+            <div>Flagged queue</div>
+            <div>Escalations</div>
+            <div>Reviewer notes</div>
+            <div>Audit export</div>
+          </div>
+          <p style="margin-top:220px;color:#bddaca;line-height:1.45">Prototype mode: synthetic and masked records only.</p>
+        </aside>
+
+        <section class="ops-body">
+          <header class="ops-header">
+            <div>
+              <span class="tag status-green">Queue control view</span>
+              <h3>Find what is stuck, assign what matters.</h3>
+            </div>
+            <div class="ops-filters">
+              <div class="ops-filter">Risk: High</div>
+              <div class="ops-filter">Status: Open</div>
+              <div class="ops-filter">Corridor: All</div>
+              <div class="ops-filter">Team: Financial Crime</div>
+            </div>
+          </header>
+
+          <div class="ops-metrics">
+            <div class="ops-metric"><small>Flagged</small><strong>428</strong></div>
+            <div class="ops-metric"><small>Exposure</small><strong>$18.7M</strong></div>
+            <div class="ops-metric"><small>High risk</small><strong>63</strong></div>
+            <div class="ops-metric"><small>SLA breach</small><strong>19</strong></div>
+          </div>
+
+          <div class="ops-layout">
+            <section>
+              <div class="ops-lanes">
+                <div class="lane">
+                  <h4>New</h4>
+                  <div class="ticket"><strong>TX-9036</strong>Velocity and threshold exception<br><span class="tag status-blue">5h left</span></div>
+                  <div class="ticket"><strong>TX-8972</strong>New beneficiary added</div>
+                </div>
+                <div class="lane">
+                  <h4>In review</h4>
+                  <div class="ticket"><strong>TX-9051</strong>Dormant reactivation<br><span class="tag status-amber">2h left</span></div>
+                  <div class="ticket"><strong>TX-8964</strong>High-risk corridor</div>
+                </div>
+                <div class="lane">
+                  <h4>Escalated</h4>
+                  <div class="ticket"><strong>TX-9084</strong>Watchlist proximity<br><span class="tag status-red">Breached</span></div>
+                </div>
+                <div class="lane">
+                  <h4>Blocked</h4>
+                  <div class="ticket"><strong>TX-8891</strong>Awaiting source-of-funds evidence</div>
+                  <div class="ticket"><strong>TX-8860</strong>KYC refresh needed</div>
+                </div>
+                <div class="lane">
+                  <h4>Cleared</h4>
+                  <div class="ticket"><strong>TX-8998</strong>Cleared with manager note<br><span class="tag status-green">Inside SLA</span></div>
+                </div>
+              </div>
+            </section>
+
+            <aside class="ops-card">
+              <h4>Selected work item</h4>
+              <p><strong>TX-9084 / GCC -> Baltics</strong></p>
+              <p>Flagged for review based on watchlist proximity, new beneficiary, and amount threshold exception.</p>
+              <span class="tag status-red">Recommended: sanctions escalation</span>
+              <h4 style="margin-top:24px">Reviewer note</h4>
+              <div class="ops-note">UI-only note placeholder: request source-of-funds documentation and confirm beneficiary ownership before closure.</div>
+            </aside>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section class="concept" id="concept-4">
+      <div class="concept-head">
+        <div>
+          <p class="concept-kicker">Version 04 / Investigation-grade visual intelligence</p>
+          <h2>Risk Radar</h2>
+        </div>
+        <p class="concept-note">Best for a memorable demo moment. Treats transactions as signals in a risk landscape, while retaining the required table and detail data for decision traceability.</p>
+      </div>
+
+      <div class="screen vault">
+        <section class="vault-main">
+          <header class="vault-header">
+            <div>
+              <span class="tag status-blue">Signal intelligence view</span>
+              <h3>Risk clusters are forming around new beneficiaries and corridor exceptions.</h3>
+            </div>
+            <span class="tag status-amber">7-day anomaly spike</span>
+          </header>
+
+          <div class="radar-wrap">
+            <div class="radar" aria-label="Risk radar mock visualization">
+              <span class="blip b1"></span>
+              <span class="blip b2"></span>
+              <span class="blip b3"></span>
+            </div>
+            <div class="vault-card">
+              <h4>Signal clusters</h4>
+              <div class="signal-row"><div><strong>Watchlist proximity</strong>18 open reviews across 4 corridors</div><span class="tag status-red">Critical</span></div>
+              <div class="signal-row"><div><strong>Unusual velocity</strong>42 transactions above profile baseline</div><span class="tag status-amber">Elevated</span></div>
+              <div class="signal-row"><div><strong>Dormant reactivation</strong>11 accounts active after long inactivity</div><span class="tag status-amber">Elevated</span></div>
+              <div class="signal-row"><div><strong>New beneficiary</strong>36 additions within 72 hours</div><span class="tag status-blue">Review</span></div>
+              <div class="signal-row"><div><strong>Threshold exception</strong>25 over corridor policy threshold</div><span class="tag status-blue">Review</span></div>
+            </div>
+          </div>
+
+          <div class="vault-card">
+            <h4>Transactions requiring decision trace</h4>
+            <table class="decision-table">
+              <thead>
+                <tr><th>Txn</th><th>Risk score</th><th>Indicators</th><th>Next action</th><th>Status</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>TX-9084</td><td>94</td><td>Watchlist, beneficiary, threshold</td><td>Escalate to sanctions team</td><td><span class="tag status-red">Escalated</span></td></tr>
+                <tr><td>TX-9051</td><td>88</td><td>Dormant reactivation, corridor</td><td>Review KYC profile</td><td><span class="tag status-amber">In review</span></td></tr>
+                <tr><td>TX-9036</td><td>81</td><td>Velocity, threshold</td><td>Request source of funds</td><td><span class="tag status-blue">New</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <aside class="vault-side">
+          <div class="vault-kpis">
+            <div class="vault-kpi"><small>Flagged</small><strong>428</strong></div>
+            <div class="vault-kpi"><small>Exposure</small><strong>$18.7M</strong></div>
+            <div class="vault-kpi"><small>High risk</small><strong>63</strong></div>
+            <div class="vault-kpi"><small>SLA breach</small><strong>19</strong></div>
+          </div>
+
+          <div class="vault-card">
+            <h4>Seven-day risk pulse</h4>
+            <div class="mini-bars" style="color:#2dd4bf">
+              <span style="height:34%"></span><span style="height:46%"></span><span style="height:43%"></span><span style="height:60%"></span><span style="height:70%"></span><span style="height:81%"></span><span style="height:96%"></span>
+            </div>
+          </div>
+
+          <div class="vault-card">
+            <h4>Governance footer</h4>
+            <p style="margin:0;color:#a7f3d0;line-height:1.5">This dashboard supports triage and human review. Production actions must write case updates and notes to immutable audit logging.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
