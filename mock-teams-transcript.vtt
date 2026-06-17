@@ -1,0 +1,95 @@
+WEBVTT
+
+NOTE
+Mock Microsoft Teams transcript for the GitHub Copilot autonomous SDLC demo.
+Synthetic content only. No real customer, account, or transaction data.
+
+00:00:02.100 --> 00:00:09.400
+<v Karen Blake - Chief Risk Officer>Thanks for joining at short notice. We have an uncomfortable situation. The regulator asked yesterday how quickly we can explain the recent spike in high-risk outbound wires.</v>
+
+00:00:10.200 --> 00:00:18.700
+<v Marcus Reed - Head of Financial Crime>It is not just volume. We are seeing more transactions touching higher-risk jurisdictions, newly added beneficiaries, and a few dormant accounts that suddenly became active.</v>
+
+00:00:19.300 --> 00:00:27.100
+<v Priya Shah - Compliance Operations Lead>Right now my team is piecing this together from three places: the payment export, the case management queue, and a spreadsheet from KYC. It is slow and ugly.</v>
+
+00:00:28.000 --> 00:00:34.900
+<v Daniel Cho - COO>What do we need for leadership by Friday? I do not need the perfect system. I need a view of exposure, backlog, and what is blocked.</v>
+
+00:00:35.800 --> 00:00:43.600
+<v Elena Martinez - CIO>Friday is tight if we are talking about production integration. If we are talking about a dashboard prototype with synthetic or exported data, that is more realistic.</v>
+
+00:00:44.400 --> 00:00:53.200
+<v Karen Blake - Chief Risk Officer>For the regulator, I need to show that we know which transactions are highest risk, why they were flagged, and whether they are being reviewed inside SLA.</v>
+
+00:00:54.000 --> 00:01:04.200
+<v Marcus Reed - Head of Financial Crime>The risk reasons should include sanctions watchlist proximity, unusual velocity, high-risk corridor, new beneficiary, dormant account reactivation, and amount threshold exceptions.</v>
+
+00:01:05.100 --> 00:01:12.700
+<v Priya Shah - Compliance Operations Lead>Can we also include reviewer status? New, in review, escalated, cleared, and blocked. My managers need to see what is stuck.</v>
+
+00:01:13.400 --> 00:01:22.000
+<v Daniel Cho - COO>And I want simple numbers at the top. Total flagged transactions, total value exposed, number high risk, and how many are outside SLA.</v>
+
+00:01:22.900 --> 00:01:31.300
+<v Grace Liu - General Counsel>Important: do not use real client names or account numbers in any demo or prototype. Mask anything sensitive. Synthetic data is safest.</v>
+
+00:01:32.100 --> 00:01:40.500
+<v Elena Martinez - CIO>For a future-state architecture, we should show payment systems feeding a risk scoring service, KYC enrichment, watchlist screening, case management, and audit logging.</v>
+
+00:01:41.300 --> 00:01:48.900
+<v Karen Blake - Chief Risk Officer>Yes, but the live build should be scoped. I do not want the team boiling the ocean. The board needs confidence that we can move quickly.</v>
+
+00:01:49.700 --> 00:01:57.800
+<v Marcus Reed - Head of Financial Crime>The dashboard has to make the risk explainable. A reviewer should click a transaction and see the reasons, not just a score.</v>
+
+00:01:58.600 --> 00:02:07.000
+<v Priya Shah - Compliance Operations Lead>Filters matter. Risk level, geography or corridor, transaction type, review status, and maybe assigned team. If we only get three filters, use risk level, status, and corridor.</v>
+
+00:02:07.900 --> 00:02:16.300
+<v Daniel Cho - COO>Do we have a trend view? I want to know whether this is a one-day spike or a sustained increase over the last week.</v>
+
+00:02:17.000 --> 00:02:25.400
+<v Elena Martinez - CIO>A seven-day chart is easy in a static prototype. We can use local JSON data and keep the implementation front-end only.</v>
+
+00:02:26.300 --> 00:02:34.800
+<v Grace Liu - General Counsel>Language matters. The system should not say a transaction is illegal. It should say flagged for review based on configured indicators.</v>
+
+00:02:35.600 --> 00:02:43.500
+<v Karen Blake - Chief Risk Officer>Good point. The dashboard should support human review, not automated decisioning. That is an important governance message.</v>
+
+00:02:44.200 --> 00:02:53.300
+<v Marcus Reed - Head of Financial Crime>I would also like a recommended next action. For example: review KYC, request source of funds, escalate to sanctions team, or clear with note.</v>
+
+00:02:54.000 --> 00:03:01.900
+<v Priya Shah - Compliance Operations Lead>Can we capture reviewer notes? Maybe not persist them yet, but show where they would appear in the workflow.</v>
+
+00:03:02.800 --> 00:03:10.600
+<v Elena Martinez - CIO>For the demo, notes can be UI-only. In production they would go through an API to case management and an immutable audit log.</v>
+
+00:03:11.400 --> 00:03:20.200
+<v Daniel Cho - COO>What about release? I want to show that this is not a side project on someone's laptop. It should go through source control, checks, and deployment.</v>
+
+00:03:21.000 --> 00:03:30.200
+<v Elena Martinez - CIO>We can use GitHub Actions and deploy the static app. GitHub Pages is fastest for the demo. Azure Static Web Apps is a better enterprise landing zone later.</v>
+
+00:03:31.000 --> 00:03:39.100
+<v Grace Liu - General Counsel>Make sure the architecture includes role-based access, audit logging, data masking, and retention. Even if they are not built in the prototype.</v>
+
+00:03:40.000 --> 00:03:47.900
+<v Karen Blake - Chief Risk Officer>Success for Friday: leadership can see the size of the issue, the highest-risk transactions, why they matter, and whether review is under control.</v>
+
+00:03:48.700 --> 00:03:55.400
+<v Marcus Reed - Head of Financial Crime>And my team can use the prototype to align on the workflow before we integrate real systems.</v>
+
+00:03:56.100 --> 00:04:04.000
+<v Priya Shah - Compliance Operations Lead>One messy request: can the table look polished? If this goes to executives, it cannot look like an internal spreadsheet.</v>
+
+00:04:04.800 --> 00:04:13.400
+<v Daniel Cho - COO>I agree. Crisp, simple, executive-ready. No engineering clutter. I want to see business impact, not implementation detail.</v>
+
+00:04:14.100 --> 00:04:22.500
+<v Elena Martinez - CIO>Then the action is: turn this transcript into a spec, generate the architecture, build the front-end MVP with synthetic data, test it, and deploy it.</v>
+
+00:04:23.300 --> 00:04:31.000
+<v Karen Blake - Chief Risk Officer>Exactly. And I want clear approval points. The agent can move fast, but humans approve requirements, design, and release.</v>
