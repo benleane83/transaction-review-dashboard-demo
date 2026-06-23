@@ -1,0 +1,197 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-06-23T16:08:45.000+04:00",
+  "title": "Design System: Transaction Review Dashboard",
+  "extensions": {
+    "colorMeta": {
+      "ink-deep": {
+        "role": "neutral",
+        "displayName": "Deep Review Ink",
+        "canonical": "#102033",
+        "tonalRamp": ["oklch(15% 0.03 250)", "oklch(25% 0.035 250)", "oklch(35% 0.035 250)", "oklch(48% 0.03 250)", "oklch(62% 0.025 250)", "oklch(76% 0.018 250)", "oklch(88% 0.012 250)", "oklch(96% 0.006 250)"]
+      },
+      "accent-blue": {
+        "role": "primary",
+        "displayName": "Ledger Blue",
+        "canonical": "#3164d4",
+        "tonalRamp": ["oklch(18% 0.09 260)", "oklch(28% 0.12 260)", "oklch(40% 0.16 260)", "oklch(52% 0.18 260)", "oklch(64% 0.16 260)", "oklch(76% 0.11 260)", "oklch(88% 0.055 260)", "oklch(96% 0.02 260)"]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "White Surface",
+        "canonical": "#ffffff",
+        "tonalRamp": ["oklch(18% 0.006 250)", "oklch(32% 0.006 250)", "oklch(46% 0.005 250)", "oklch(60% 0.004 250)", "oklch(74% 0.003 250)", "oklch(86% 0.003 250)", "oklch(94% 0.002 250)", "oklch(100% 0 0)"]
+      },
+      "danger-text": {
+        "role": "tertiary",
+        "displayName": "Critical Red",
+        "canonical": "#a31f1f",
+        "tonalRamp": ["oklch(18% 0.08 25)", "oklch(28% 0.11 25)", "oklch(40% 0.14 25)", "oklch(52% 0.16 25)", "oklch(64% 0.12 25)", "oklch(76% 0.075 25)", "oklch(88% 0.04 25)", "oklch(96% 0.018 25)"]
+      },
+      "warning-text": {
+        "role": "tertiary",
+        "displayName": "Risk Amber",
+        "canonical": "#9a5200",
+        "tonalRamp": ["oklch(18% 0.06 65)", "oklch(30% 0.08 65)", "oklch(42% 0.1 65)", "oklch(54% 0.12 65)", "oklch(66% 0.11 65)", "oklch(78% 0.075 65)", "oklch(89% 0.04 65)", "oklch(96% 0.018 65)"]
+      },
+      "success-text": {
+        "role": "tertiary",
+        "displayName": "Cleared Green",
+        "canonical": "#1a6b39",
+        "tonalRamp": ["oklch(18% 0.05 150)", "oklch(30% 0.07 150)", "oklch(42% 0.09 150)", "oklch(54% 0.1 150)", "oklch(66% 0.08 150)", "oklch(78% 0.055 150)", "oklch(89% 0.03 150)", "oklch(96% 0.014 150)"]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Dashboard Display",
+        "purpose": "Single page title and executive demo identity only."
+      },
+      "headline": {
+        "displayName": "Panel Headline",
+        "purpose": "Names dashboard modules and transaction detail sections."
+      },
+      "body": {
+        "displayName": "Operational Body",
+        "purpose": "Readable prose, table cells, reasons, and review workflow copy."
+      },
+      "label": {
+        "displayName": "Scanning Label",
+        "purpose": "Compact region labels, table headers, definition terms, and badges."
+      }
+    },
+    "shadows": [
+      {
+        "name": "panel-ambient",
+        "value": "0 12px 32px rgba(28, 45, 64, 0.07)",
+        "purpose": "Diffuse structural elevation for major dashboard containers."
+      }
+    ],
+    "motion": [
+      {
+        "name": "state-standard",
+        "value": "180ms cubic-bezier(0.22, 1, 0.36, 1)",
+        "purpose": "Future hover, focus, and selected-state transitions only."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "stack-workbench",
+        "value": "1100px"
+      },
+      {
+        "name": "compact-mobile",
+        "value": "700px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Lightweight secondary action for panel-level operations like resetting filters.",
+      "html": "<button class=\"ds-ghost-button\" type=\"button\">Reset</button>",
+      "css": ".ds-ghost-button { border: 1px solid #cbd8e6; border-radius: 999px; background: #fff; color: #2851b4; cursor: pointer; font: 800 0.9rem Inter, ui-sans-serif, system-ui, sans-serif; padding: 9px 14px; transition: border-color 180ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 180ms cubic-bezier(0.22, 1, 0.36, 1), background-color 180ms cubic-bezier(0.22, 1, 0.36, 1); } .ds-ghost-button:hover { border-color: #ced9e6; background: #f0f6ff; } .ds-ghost-button:focus-visible { outline: 3px solid rgba(49, 100, 212, 0.36); outline-offset: 3px; }"
+    },
+    {
+      "name": "Panel",
+      "kind": "card",
+      "refersTo": "panel",
+      "description": "Primary dashboard container for trend, filters, queue, and transaction detail surfaces.",
+      "html": "<article class=\"ds-panel\"><h2>Flagged transactions</h2><p class=\"ds-panel-subtitle\">Sorted for review by the selected filter set</p></article>",
+      "css": ".ds-panel { border: 1px solid #e6edf5; border-radius: 28px; background: #fff; box-shadow: 0 12px 32px rgba(28, 45, 64, 0.07); color: #102033; font-family: Inter, ui-sans-serif, system-ui, sans-serif; padding: 24px; } .ds-panel h2 { margin: 0; color: #102033; font-size: 1.45rem; letter-spacing: -0.04em; line-height: 1.15; } .ds-panel-subtitle { color: #45596f; font-size: 0.88rem; margin: 6px 0 0; }"
+    },
+    {
+      "name": "Filter Select",
+      "kind": "input",
+      "refersTo": "input-select",
+      "description": "Native select control for dashboard filtering with familiar product affordance.",
+      "html": "<label class=\"ds-filter-control\"><span>Risk level</span><select><option>All</option><option>Critical</option><option>High</option></select></label>",
+      "css": ".ds-filter-control { display: grid; gap: 8px; color: #405469; font: 700 0.88rem Inter, ui-sans-serif, system-ui, sans-serif; } .ds-filter-control select { width: 100%; border: 1px solid #ced9e6; border-radius: 14px; background: #fff; color: #162a3f; font: inherit; padding: 12px 14px; } .ds-filter-control select:focus-visible { outline: 3px solid rgba(49, 100, 212, 0.36); outline-offset: 3px; }"
+    },
+    {
+      "name": "Risk Badge",
+      "kind": "chip",
+      "refersTo": "badge-risk-critical",
+      "description": "Semantic risk chip with explicit label and readable contrast.",
+      "html": "<span class=\"ds-risk-badge\">Critical</span>",
+      "css": ".ds-risk-badge { display: inline-flex; align-items: center; border-radius: 999px; background: #ffe6e6; color: #a31f1f; font: 900 0.76rem Inter, ui-sans-serif, system-ui, sans-serif; padding: 6px 10px; }"
+    },
+    {
+      "name": "Selected Table Row",
+      "kind": "custom",
+      "refersTo": "review-table-row",
+      "description": "Dense operational row treatment for active transaction selection.",
+      "html": "<table class=\"ds-review-table\"><tbody><tr class=\"ds-selected-row\"><td><button>TRX-10482</button></td><td>$2,475,000</td><td><span>Critical</span></td></tr></tbody></table>",
+      "css": ".ds-review-table { width: 100%; min-width: 420px; border-collapse: collapse; font-family: Inter, ui-sans-serif, system-ui, sans-serif; } .ds-review-table td { border-bottom: 1px solid #e6edf5; color: #273d52; font-size: 0.9rem; padding: 14px 12px; text-align: left; } .ds-review-table .ds-selected-row td { background: #f0f6ff; } .ds-review-table button { display: inline-flex; min-height: 44px; align-items: center; border: 1px solid transparent; border-radius: 14px; background: transparent; color: #2457c5; cursor: pointer; font: 900 0.9rem Inter, ui-sans-serif, system-ui, sans-serif; padding: 0 8px; } .ds-review-table button:hover { border-color: #cbd8e6; background: #f8fbff; } .ds-review-table button:focus-visible { outline: 3px solid rgba(49, 100, 212, 0.36); outline-offset: 3px; } .ds-review-table span { border-radius: 999px; background: #ffe6e6; color: #a31f1f; font-size: 0.76rem; font-weight: 900; padding: 6px 10px; }"
+    },
+    {
+      "name": "Priority Strip",
+      "kind": "custom",
+      "refersTo": "priority-strip",
+      "description": "Lightweight task-orientation affordance that names the first transaction to inspect without becoming an alert card.",
+      "html": "<section class=\"ds-priority-strip\"><div><span>Open first</span><strong>TRX-10482</strong><p>Critical risk · Past due · Escalate to sanctions team</p></div><button type=\"button\">View evidence</button></section>",
+      "css": ".ds-priority-strip { display: flex; justify-content: space-between; gap: 16px; align-items: center; border: 1px solid #cbd8e6; border-radius: 18px; background: #f8fbff; color: #102033; font-family: Inter, ui-sans-serif, system-ui, sans-serif; padding: 16px 18px; } .ds-priority-strip span { color: #45596f; font-size: 0.78rem; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; } .ds-priority-strip strong { display: inline-block; margin-left: 10px; font-size: 1.05rem; } .ds-priority-strip p { color: #45596f; margin: 4px 0 0; }"
+    },
+    {
+      "name": "Reason Card",
+      "kind": "card",
+      "refersTo": "reason-card",
+      "description": "Evidence block for why a transaction was flagged.",
+      "html": "<article class=\"ds-reason-card\"><div><strong>Sanctions proximity</strong><span>SAN-PROX</span></div><p>Beneficiary pattern is near configured sanctions-screening indicators.</p></article>",
+      "css": ".ds-reason-card { border: 1px solid #dde7f1; border-radius: 18px; color: #102033; font-family: Inter, ui-sans-serif, system-ui, sans-serif; padding: 14px; } .ds-reason-card div { display: flex; gap: 12px; justify-content: space-between; } .ds-reason-card strong { font-weight: 900; } .ds-reason-card span { color: #45596f; font-size: 0.78rem; font-weight: 800; } .ds-reason-card p { color: #52677c; margin: 8px 0 0; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Review Ledger",
+    "overview": "This system is a measured operational ledger for human judgment. It uses cool surfaces, disciplined blue accents, compact evidence blocks, and consistent rounded controls to keep reviewers oriented across risk, SLA posture, and transaction rationale. The design should feel calm under pressure: enough hierarchy to make urgent items unmistakable, never enough decoration to compete with the evidence.\n\nThe product personality is calm, precise, and accountable. The visual system rejects generic fintech and SaaS-dashboard cliches: navy-and-gold prestige styling, decorative glassy KPI cards, gradient accents, ornamental metrics, and command-center theatrics. Risk belongs in the data and status vocabulary, not in visual drama.",
+    "keyCharacteristics": [
+      "Evidence-first hierarchy with portfolio KPIs, filters, queue, and transaction detail in one coherent workbench.",
+      "Restrained blue accent usage for selection, links, chart bars, and control emphasis.",
+      "Soft cool-neutral surfaces with high readability and clear separation between content layers.",
+      "Rounded, familiar product controls that preserve trust and avoid invented affordances.",
+      "Governance language visible enough to reinforce human review without interrupting the task."
+    ],
+    "rules": [
+      {
+        "name": "The Accent Has a Job Rule",
+        "body": "Blue is for active orientation, selection, chart meaning, and interactive affordances. If a blue element does not help the reviewer act or read faster, remove it.",
+        "section": "colors"
+      },
+      {
+        "name": "The Status Text Rule",
+        "body": "Red, amber, and green must always be paired with readable labels or values. Color alone is forbidden for risk, SLA, or workflow state.",
+        "section": "colors"
+      },
+      {
+        "name": "The One Family Rule",
+        "body": "Do not introduce display, serif, or mono typefaces for flavor. This product needs data confidence, not typographic personality.",
+        "section": "typography"
+      },
+      {
+        "name": "The Label Scarcity Rule",
+        "body": "Uppercase tracked labels are allowed for compact product scanning, but they must name functional regions. Do not add decorative eyebrows to every future section by reflex.",
+        "section": "typography"
+      },
+      {
+        "name": "The No Decorative Glass Rule",
+        "body": "Opaque surfaces and low shadows are the default. Do not use blur or stack translucent cards inside elevated containers.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do keep the surface restrained: cool workbench background, white panels, and blue used only for orientation or action.",
+      "Do pair every risk and SLA color with explicit text such as `Critical`, `High`, `Past due`, or `On track`.",
+      "Do preserve the evidence path from KPIs to filters to transaction row to risk reasons.",
+      "Do use familiar product controls and native affordances before designing custom interactions.",
+      "Do make governance boundaries visible when a screen could imply automated decisioning."
+    ],
+    "donts": [
+      "Don't use generic fintech and SaaS-dashboard cliches: navy-and-gold prestige styling, decorative glassy KPI cards, gradient accents, ornamental metrics, or command-center drama.",
+      "Don't use gradient text, side-stripe borders, or repeated decorative eyebrows as visual scaffolding.",
+      "Don't make risk status depend on color alone.",
+      "Don't stack nested cards inside already elevated panels.",
+      "Don't introduce display fonts, decorative icons, or custom form controls for flavor."
+    ]
+  }
+}
