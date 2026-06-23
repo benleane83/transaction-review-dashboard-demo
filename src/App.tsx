@@ -36,6 +36,14 @@ export function App() {
   const corridors = useMemo(() => uniqueOptions(transactions, "corridor"), []);
   const teams = useMemo(() => uniqueOptions(transactions, "assignedTeam"), []);
   const maxTrendCount = Math.max(...trend.map((point) => point.count), 1);
+  const activeFilterCount = Object.values(filters).filter((value) => value !== "All").length;
+  const trendRange = `${trend[0]?.label ?? "n/a"}-${trend[trend.length - 1]?.label ?? "n/a"}`;
+  const peakTrendPoint = trend.reduce((peak, point) => (point.count > peak.count ? point : peak), trend[0]);
+  const trendSummary = `${transactions.length} flagged transactions over ${trend.length} days; peak day ${peakTrendPoint?.label ?? "n/a"} with ${peakTrendPoint?.count ?? 0}.`;
+  const priorityTransaction =
+    filteredTransactions.find((transaction) => isSlaBreached(transaction) && (transaction.riskLevel === "Critical" || transaction.riskLevel === "High")) ??
+    filteredTransactions.find((transaction) => transaction.riskLevel === "Critical" || transaction.riskLevel === "High") ??
+    filteredTransactions[0];
 
   useEffect(() => {
     if (filteredTransactions.length > 0 && !filteredTransactions.some((transaction) => transaction.id === selectedId)) {
@@ -46,16 +54,18 @@ export function App() {
   return (
     <main className="app-shell">
       <section className="hero">
-        <div>
-          <p className="eyebrow">Financial crime operations</p>
+        <div className="hero-main">
+          <div className="hero-title-row">
+            <span className="header-label">Financial crime operations</span>
+            <span className="data-freshness">Synthetic review queue</span>
+          </div>
           <h1>Transaction Review Dashboard</h1>
           <p className="hero-copy">
-            A synthetic executive demo for triaging transactions flagged for review based on configured indicators,
-            SLA posture, and human reviewer workflow.
+            Human-owned triage for flagged transactions, configured risk indicators, SLA posture, and reviewer workflow.
           </p>
         </div>
         <div className="governance-card" aria-label="Governance posture">
-          <span>Human review only</span>
+          <span>Governance posture</span>
           <strong>No automated decisioning</strong>
           <p>Risk indicators explain why a transaction is flagged; reviewers own the outcome.</p>
         </div>
@@ -68,16 +78,33 @@ export function App() {
         <KpiCard label="SLA breaches" value={kpis.slaBreachCount.toString()} detail="Open items past due" tone="danger" />
       </section>
 
+      {priorityTransaction && (
+        <section className="priority-strip" aria-label="Suggested review focus">
+          <div>
+            <span>Open first</span>
+            <strong>{priorityTransaction.id}</strong>
+            <p>
+              {priorityTransaction.riskLevel} risk · {isSlaBreached(priorityTransaction) ? "Past due" : "On track"} ·{" "}
+              {priorityTransaction.recommendedAction}
+            </p>
+          </div>
+          <button className="ghost-button" type="button" onClick={() => setSelectedId(priorityTransaction.id)}>
+            View evidence
+          </button>
+        </section>
+      )}
+
       <section className="dashboard-grid">
         <article className="panel trend-panel">
           <div className="panel-heading">
             <div>
-              <p className="eyebrow">7-day trend</p>
               <h2>Flagged transaction volume</h2>
+              <p className="panel-subtitle">{trendRange} window across synthetic alerts</p>
             </div>
-            <span className="panel-note">Synthetic data</span>
+            <span className="panel-note">7-day trend</span>
           </div>
-          <div className="trend-chart" aria-label="Flagged transaction trend">
+          <p className="sr-only">{trendSummary}</p>
+          <div className="trend-chart" aria-label={trendSummary}>
             {trend.map((point) => (
               <div className="trend-column" key={point.date}>
                 <div className="trend-bar-wrap">
@@ -93,9 +120,12 @@ export function App() {
         <article className="panel filters-panel">
           <div className="panel-heading">
             <div>
-              <p className="eyebrow">Triage controls</p>
               <h2>Prioritized filters</h2>
+              <p className="panel-subtitle">
+                {activeFilterCount === 0 ? "All flagged transactions visible" : `${activeFilterCount} filter${activeFilterCount === 1 ? "" : "s"} active`}
+              </p>
             </div>
+            <span className="panel-note">5 controls</span>
             <button className="ghost-button" type="button" onClick={() => setFilters(defaultFilters)}>
               Reset
             </button>
@@ -139,10 +169,12 @@ export function App() {
         <article className="panel table-panel">
           <div className="panel-heading">
             <div>
-              <p className="eyebrow">Review queue</p>
               <h2>Flagged transactions</h2>
+              <p className="panel-subtitle">Sorted for review by the selected filter set</p>
             </div>
-            <span className="panel-note">{filteredTransactions.length} results</span>
+            <span className="panel-note">
+              {filteredTransactions.length} results · {kpis.slaBreachCount} past due
+            </span>
           </div>
           <div className="table-wrap">
             <table>
@@ -162,10 +194,14 @@ export function App() {
                   <tr
                     className={transaction.id === selectedTransaction?.id ? "selected-row" : ""}
                     key={transaction.id}
-                    onClick={() => setSelectedId(transaction.id)}
                   >
                     <td>
-                      <button className="row-button" type="button" onClick={() => setSelectedId(transaction.id)}>
+                      <button
+                        className="row-button"
+                        type="button"
+                        aria-pressed={transaction.id === selectedTransaction?.id}
+                        onClick={() => setSelectedId(transaction.id)}
+                      >
                         {transaction.id}
                       </button>
                     </td>
@@ -251,8 +287,8 @@ function TransactionDetail({ transaction }: { transaction?: Transaction }) {
     <aside className="panel detail-panel">
       <div className="panel-heading">
         <div>
-          <p className="eyebrow">Transaction detail</p>
           <h2>{transaction.id}</h2>
+          <p className="panel-subtitle">Human-owned evidence trail</p>
         </div>
         <RiskBadge riskLevel={transaction.riskLevel} />
       </div>
@@ -294,15 +330,15 @@ function TransactionDetail({ transaction }: { transaction?: Transaction }) {
       <section className="review-workflow">
         <h3>Human review workflow</h3>
         <p>
-          Recommended next action: <strong>{transaction.recommendedAction}</strong>
+          Suggested reviewer next step: <strong>{transaction.recommendedAction}</strong>
         </p>
         <label>
           Reviewer notes
           <textarea value={transaction.reviewerNotes} readOnly rows={4} />
         </label>
         <p className="governance-copy">
-          This prototype supports reviewer triage. It does not make final compliance determinations or automate case
-          outcomes.
+          Reviewer owns the outcome. This prototype supports triage; it does not make final compliance determinations or
+          automate case outcomes.
         </p>
       </section>
     </aside>
