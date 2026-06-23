@@ -31,9 +31,16 @@ Core UI elements:
 
 - KPI cards for flagged transactions, total exposure, high-risk items, and SLA breaches.
 - Risk trend chart showing flagged transaction volume over recent days.
-- Flagged transaction table with filters for risk level, transaction type, region, and review status.
-- Transaction detail panel showing risk reasons, reviewer notes, and recommended next action.
+- Flagged transaction table with filters for risk level, transaction type, corridor, review status, and assigned team.
+- Transaction detail panel showing risk reasons, reviewer notes, review status, and recommended next action.
 - Synthetic transaction dataset stored locally in the app.
+
+Implemented MVP assets:
+
+- `src/data/transactions.ts` contains synthetic transaction records and configured indicators.
+- `src/utils/dashboard.ts` contains KPI, SLA, filter, trend, and formatting utilities.
+- `src/App.tsx` and `src/styles.css` provide the executive dashboard UI.
+- `src/utils/dashboard.test.ts` validates dashboard calculations and filters.
 
 ## Target-state architecture to diagram
 
@@ -49,6 +56,20 @@ Suggested target-state components:
 - Frontend dashboard for compliance reviewers and leadership summaries.
 - Controls for RBAC, audit logging, data masking, policy checks, and retention.
 - Delivery pipeline using GitHub, GitHub Actions, environment approvals, and static hosting.
+
+```mermaid
+flowchart LR
+  sources[Wire, ACH, card, and core banking systems] --> ingest[Event and batch ingestion]
+  ingest --> data[Transaction history and customer profile services]
+  data --> risk[Rules, anomaly scoring, and explainability services]
+  watchlists[KYC, sanctions, and AML watchlists] --> risk
+  risk --> api[Transaction Review API]
+  api --> dashboard[Reviewer and leadership dashboard]
+  dashboard --> cases[Case management workflow]
+  cases --> audit[Immutable audit log and retention controls]
+  controls[RBAC, masking, policy checks, and approvals] -. govern .-> api
+  controls -. govern .-> dashboard
+```
 
 ## Recommended deployment choice
 
